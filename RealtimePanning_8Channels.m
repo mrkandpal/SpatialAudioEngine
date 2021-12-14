@@ -7,7 +7,7 @@ close all
 %% Define Sample Rate, Buffer Size and Gain
 targetFs = 48000;
 bufferSize = 256;
-gain = 40;
+gain = 600;
 segmentsPerSecond = targetFs/bufferSize;
 repeatFlag = 'y';
 
@@ -76,6 +76,7 @@ nPoints = size(pickedSphere,1); %nPoints calculated as total number of virtual l
 HOA(:,size(HOA,2)+1) = 0;
 activeChannels = [19 19 19 19 19 19 19 19];
 activeMonoSources = activeChannels([2 4 6 8]);
+spatialAudioGain = [0.01 1 0.01 1 0.01 1 0.01 1];
 
 %% Create an Array of FIR Filters (HRTF Filters) to Perform Binaural HRTF Filtering Based on the Position of the Virtual Loudspeakers
 for ii = 1:nPoints
@@ -106,6 +107,7 @@ while q>0
                 monoSourceCounter = monoSourceCounter+1;
                 activeChannels(monoSourceCounter*2) = str2double(textIn(3));
                 pickedSphere(monoSourceCounter*2,1) = str2double(textIn(1));
+                spatialAudioGain(monoSourceCounter*2) = 1/str2double(textIn(2));
                 
             elseif length(monoSourceData) == 0
                 
@@ -177,7 +179,8 @@ while q>0
    
         %Segmentation of Decoded HOA File
          audioIn=HOA((q-1)*AP.BufferSize+1:(q-1)*AP.BufferSize+1+AP.BufferSize - 1,activeChannels);
-         
+         audioIn = audioIn .* spatialAudioGain;
+         flag = 1;
         %Read Headtracking Data
         try
         
