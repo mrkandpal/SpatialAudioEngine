@@ -7,6 +7,7 @@ close all
 
 %% Set Up UDP Sender System Object
 hudps = dsp.UDPSender('RemoteIPPort',8085,'RemoteIPAddress','127.0.0.1','SendBufferSize',16);
+unitySender = dsp.UDPSender('RemoteIPPort',8051,'RemoteIPAddress','127.0.0.1','SendBufferSize',16);
 
 %% Initial Head Tracker Calibration - Here the Listener is Asked to Calibrate The Head Tracker Based on The Starting Position of Their Head
 calibrate = input('Enter Y/y To Calibrate Head Position Tracking: ', 's');
@@ -62,9 +63,17 @@ while q
         %%Send over udp
 
         step(hudps,finalHeadPosition);
-        
-        
         display(finalHeadPosition);
+        
+%         if finalHeadPosition(1) > 0
+%             toUnity = finalHeadPosition(1);
+%         else
+%             toUnity = 360 + finalHeadPosition(1);
+%         end
+%           
+%         step(unitySender, toUnity);
+%         
+%         display(toUnity);
        % toc
         
         %%A pause is added to synchronise the rate of transmission adn the
@@ -79,27 +88,4 @@ while q
      end
 
 end
-
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
+  

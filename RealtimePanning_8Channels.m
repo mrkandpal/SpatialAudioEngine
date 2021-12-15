@@ -72,7 +72,7 @@ nPoints = size(pickedSphere,1); %nPoints calculated as total number of virtual l
 % extension = '.wav';
 % audioFileName = input('Enter the Ambisonics Audio File Name (Decoded B Format): ','s');
 % [HOA, fs] = audioread(strcat(audioFileName,extension));
-[HOA,fs] = audioread('C:\Users\User\Desktop\Devansh\Spatial Audio Engine\Sound Samples\Dynamic Spatial Audio Scene\Split and Mastered\Combined.wav');
+[HOA,fs] = audioread('C:\Users\User\Desktop\Devansh\Spatial Audio Engine\Sound Samples\Dynamic Scene Final\Master\Combined.wav');
 HOA(:,size(HOA,2)+1) = 0;
 activeChannels = [19 19 19 19 19 19 19 19];
 activeMonoSources = activeChannels([2 4 6 8]);
@@ -107,7 +107,7 @@ while q>0
                 monoSourceCounter = monoSourceCounter+1;
                 activeChannels(monoSourceCounter*2) = str2double(textIn(3));
                 pickedSphere(monoSourceCounter*2,1) = str2double(textIn(1));
-                spatialAudioGain(monoSourceCounter*2) = 1/str2double(textIn(2));
+                spatialAudioGain(monoSourceCounter*2) = 1/ str2double(textIn(2));
                 
             elseif length(monoSourceData) == 0
                 

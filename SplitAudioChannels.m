@@ -14,7 +14,7 @@ function SplitAudioChannels(audioInput)
     fileName = input('Enter Target Filename: ', 's');
     
     %Set target directory and file extension 
-    targetDirectory = 'C:\Users\User\Desktop\Devansh\Sound Samples\Split Ambisonics\';
+    targetDirectory = 'C:\Users\User\Desktop\Devansh\Spatial Audio Engine\Sound Samples\Split Ambisonics\ThunderAmbisonics\';
     extension = '.wav';
     
     for i=1:numChannels
